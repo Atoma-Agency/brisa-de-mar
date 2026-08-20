@@ -1,26 +1,92 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette */
+  --color-cream: #f8f7f3;
+  --color-pale-blue: #eef5f6;
+  --color-brand: #1f5964;
+  --color-ink: #18343a;
+  --color-sand: #d8c7a5;
+
+  /* Footer palette (dedicated dark section) */
+  --color-footer-bg: #17383f;
+  --color-footer-fg: #f4f5f2;
+  --color-footer-muted: #afc4c7;
+  --color-footer-accent: #6fabb3;
+  --color-footer-border: #31565c;
+
+  /* Semantic aliases */
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-cream: var(--color-cream);
+  --color-pale-blue: var(--color-pale-blue);
+  --color-brand: var(--color-brand);
+  --color-ink: var(--color-ink);
+  --color-sand: var(--color-sand);
+
+  --color-footer-bg: var(--color-footer-bg);
+  --color-footer-fg: var(--color-footer-fg);
+  --color-footer-muted: var(--color-footer-muted);
+  --color-footer-accent: var(--color-footer-accent);
+  --color-footer-border: var(--color-footer-border);
+
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-y, 16px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: reveal 950ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 24px));
+  transition: opacity 950ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 950ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
